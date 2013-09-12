@@ -1,0 +1,37 @@
+our ($_class_cmeta, $m, $_m_buffer, $_interp);
+BEGIN { 
+local $_interp = Mason::Interp->current_load_interp;
+$_interp->component_moose_class->import;
+$_interp->component_import_class->import;
+}
+*m = \$Mason::Request::current_request;
+*_m_buffer = \$Mason::Request::current_buffer;
+sub _inner { inner() }
+method _set_class_cmeta ($interp) {
+$_class_cmeta = $interp->component_class_meta_class->new(
+'class' => CLASS,
+'dir_path' => '/',
+'interp' => $interp,
+'is_top_level' => '1',
+'object_file' => __FILE__,
+'path' => '/sample.mc',
+'source_file' => 't/comps/sample.mc',
+);
+}
+sub _unset_class_cmeta { undef $_class_cmeta }
+sub _class_cmeta { $_class_cmeta }
+method main  {
+#line 1 "t/comps/sample.mc"
+ if (1) {
+$$_m_buffer .= '    Mason basic syntax.
+';
+#line 3 "t/comps/sample.mc"
+ }
+ if (0) {
+$$_m_buffer .= '        Disable AllowSpacePerlLine syntax.
+';
+#line 6 "t/comps/sample.mc"
+ }
+
+;return;
+}
